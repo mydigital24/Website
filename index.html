@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Startseite</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button id="settings-toggle" aria-label="Einstellungen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+    </button>
+
+    <div id="top-info">
+        <div id="time">00:00</div>
+        <div id="date-weather">--.--. ---- • Kiel, 18°C</div>
+    </div>
+
+    <div class="search-container">
+        <form id="search-box" action="https://www.google.com/search" method="GET" target="_blank">
+            <div class="input-wrapper">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+
+                <input type="text" name="q" id="input" placeholder="Suche..." autofocus autocomplete="off">
+
+                <button type="submit" id="search-submit-btn" aria-label="Suche starten">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="12" x2="2" y2="12"></line><polygon points="12 2 22 12 12 22"></polygon></svg>
+                </button>
+            </div>
+        </form>
+
+        <div id="badges"></div>
+    </div>
+
+    <div id="settings-modal" class="hidden">
+        <div class="modal-content">
+            <h3>Einstellungen</h3>
+            <hr>
+
+            <div class="setting-row">
+                <label>Modus</label>
+                <select id="theme-select">
+                    <option value="auto">Auto (System)</option>
+                    <option value="light">Hell</option>
+                    <option value="dark">Dunkel</option>
+                </select>
+            </div>
+
+            <div class="color-group">
+                <p class="color-group-label">Hell-Modus Farben</p>
+                <div class="setting-row">
+                    <label>Hintergrund</label>
+                    <input type="color" id="bg-light-picker" value="#CDC3B7">
+                </div>
+                <div class="setting-row">
+                    <label>Textfarbe</label>
+                    <input type="color" id="text-light-picker" value="#1a4a8c">
+                </div>
+            </div>
+
+            <div class="color-group">
+                <p class="color-group-label">Dunkel-Modus Farben</p>
+                <div class="setting-row">
+                    <label>Hintergrund</label>
+                    <input type="color" id="bg-dark-picker" value="#000000">
+                </div>
+                <div class="setting-row">
+                    <label>Textfarbe</label>
+                    <input type="color" id="text-dark-picker" value="#CDC3B7">
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <label>Eckenrundung (px)</label>
+                <input type="range" id="radius-slider" min="0" max="40" value="25">
+            </div>
+
+            <div class="setting-row">
+                <label>Tab-Verhalten</label>
+                <select id="tab-select">
+                    <option value="new">Neuer Tab</option>
+                    <option value="current">Aktueller Tab</option>
+                </select>
+            </div>
+
+            <hr>
+            <p style="font-size:0.85rem;opacity:0.7;margin:4px 0;">Verlauf</p>
+            <div id="history-list"></div>
+            <button id="clear-history" class="danger-btn" style="margin-top:8px;">Verlauf leeren</button>
+
+            <button id="settings-close">Schließen</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
