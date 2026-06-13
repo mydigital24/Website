@@ -198,6 +198,18 @@ clearHistoryBtn.addEventListener('click', () => {
     }
 });
 
+document.getElementById('reset-design').addEventListener('click', () => {
+    if (confirm('Design auf Standardwerte zurücksetzen?')) {
+        settings.theme = 'auto';
+        settings.bgLight = '#CDC3B7';
+        settings.textLight = '#1a4a8c';
+        settings.bgDark = '#000000';
+        settings.textDark = '#CDC3B7';
+        settings.radius = '25';
+        saveSettings();
+    }
+});
+
 document.getElementById('clear-all').addEventListener('click', () => {
     if (confirm('Alle Daten (Einstellungen + Verlauf) unwiderruflich löschen?')) {
         localStorage.removeItem('startpage_settings');
