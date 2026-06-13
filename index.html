@@ -19,7 +19,7 @@
     </div>
 
     <div class="search-container">
-        <form id="search-box" action="https://www.google.com/search" method="GET" target="_blank">
+        <form id="search-box">
             <div class="input-wrapper">
                 <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
 
@@ -78,6 +78,18 @@
             </div>
 
             <div class="setting-row">
+                <label>Suchmaschine</label>
+                <select id="engine-select">
+                    <option value="google">Google</option>
+                    <option value="duckduckgo">DuckDuckGo</option>
+                    <option value="ecosia">Ecosia</option>
+                    <option value="qwant">Qwant</option>
+                    <option value="bing">Bing</option>
+                    <option value="startpage">Startpage</option>
+                </select>
+            </div>
+
+            <div class="setting-row">
                 <label>Tab-Verhalten</label>
                 <select id="tab-select">
                     <option value="new">Neuer Tab</option>
@@ -89,6 +101,8 @@
             <p style="font-size:0.85rem;opacity:0.7;margin:4px 0;">Verlauf</p>
             <div id="history-list"></div>
             <button id="clear-history" class="danger-btn" style="margin-top:8px;">Verlauf leeren</button>
+
+            <button id="clear-all" class="danger-btn" style="margin-top:8px;">Alle Daten löschen</button>
 
             <button id="settings-close">Schließen</button>
         </div>

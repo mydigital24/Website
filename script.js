@@ -16,17 +16,26 @@ const bgDarkPicker = document.getElementById('bg-dark-picker');
 const textDarkPicker = document.getElementById('text-dark-picker');
 const radiusSlider = document.getElementById('radius-slider');
 const tabSelect = document.getElementById('tab-select');
+const engineSelect = document.getElementById('engine-select');
 
-const searchUrl = 'https://www.google.com/search?q=';
+const searchEngines = {
+    google: 'https://www.google.com/search?igu=1&q=',
+    duckduckgo: 'https://duckduckgo.com/?q=',
+    ecosia: 'https://www.ecosia.org/search?q=',
+    qwant: 'https://www.qwant.com/?q=',
+    bing: 'https://www.bing.com/search?q=',
+    startpage: 'https://www.startpage.com/sp/search?query='
+};
 
 function openSearch(query) {
+    const url = (searchEngines[settings.engine] || searchEngines.google) + encodeURIComponent(query);
     if (settings.tab === 'new') {
         const a = document.createElement('a');
-        a.href = searchUrl + encodeURIComponent(query);
+        a.href = url;
         a.target = '_blank';
         a.click();
     } else {
-        window.location.href = searchUrl + encodeURIComponent(query);
+        window.location.href = url;
     }
 }
 
@@ -46,6 +55,7 @@ let settings = JSON.parse(localStorage.getItem('startpage_settings')) || {
     bgDark: '#000000',
     textDark: '#CDC3B7',
     radius: '25',
+    engine: 'google',
     tab: 'new',
     history: []
 };
@@ -84,7 +94,7 @@ function applySettings() {
     document.documentElement.style.setProperty('--search-radius', `${settings.radius}px`);
     radiusSlider.value = settings.radius;
     tabSelect.value = settings.tab;
-    document.getElementById('search-box').target = settings.tab === 'new' ? '_blank' : '_self';
+    engineSelect.value = settings.engine;
 
     renderBadges();
     renderHistoryList();
@@ -160,9 +170,12 @@ function addToHistory(query, name) {
     saveSettings();
 }
 
-document.getElementById('search-box').addEventListener('submit', function() {
+document.getElementById('search-box').addEventListener('submit', function(e) {
+    e.preventDefault();
     const q = inputEl.value.trim();
-    if (q) addToHistory(q);
+    if (!q) return;
+    addToHistory(q);
+    openSearch(q);
 });
 
 toggleBtn.addEventListener('click', () => modalEl.classList.remove('hidden'));
@@ -176,11 +189,19 @@ bgDarkPicker.addEventListener('input', (e) => { settings.bgDark = e.target.value
 textDarkPicker.addEventListener('input', (e) => { settings.textDark = e.target.value; saveSettings(); });
 radiusSlider.addEventListener('input', (e) => { settings.radius = e.target.value; saveSettings(); });
 tabSelect.addEventListener('change', (e) => { settings.tab = e.target.value; saveSettings(); });
+engineSelect.addEventListener('change', (e) => { settings.engine = e.target.value; saveSettings(); });
 
 clearHistoryBtn.addEventListener('click', () => {
     if (confirm('Verlauf löschen?')) {
         settings.history = [];
         saveSettings();
+    }
+});
+
+document.getElementById('clear-all').addEventListener('click', () => {
+    if (confirm('Alle Daten (Einstellungen + Verlauf) unwiderruflich löschen?')) {
+        localStorage.removeItem('startpage_settings');
+        location.reload();
     }
 });
 
